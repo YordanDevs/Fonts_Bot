@@ -1,110 +1,99 @@
-# Desarrollado por @YordanDev  Canal: https://t.me/BuzzWireProject
-
-# Librerías
-import telebot
-from telebot import types
-
-# Token del bot 
-TOKEN = '7506418745:AAFE73h3PaOqWK-5-2SH46jRDapngi3COcw'
-bot = telebot.TeleBot(TOKEN)
-
-# Mapeo de fuentes estilizadas
-font_mapping = {
-    # Fuente 1
-    'A': '𝔸', 'B': '𝔹', 'C': 'ℭ', 'D': '𝔻', 'E': '𝔼',
-    'F': '𝔽', 'G': '𝔾', 'H': 'ℍ', 'I': '𝕀', 'J': '𝕁',
-    'K': '𝕂', 'L': '𝕃', 'M': '𝕄', 'N': '𝕆', 'Ñ': '𝕹',
-    'O': '𝕆', 'P': 'ℙ', 'Q': 'ℚ', 'R': 'ℝ', 'S': '𝕊',
-    'T': '𝕋', 'U': '𝕌', 'V': '𝕍', 'W': '𝕎', 'X': '𝕏',
-    'Y': '𝕐', 'Z': 'ℤ',
-    
-    # Minúsculas
-    'a': '𝕒', 'b': '𝕓', 'c': '𝕔', 'd': '𝕕', 'e': '𝕖',
-    'f': '𝕗', 'g': '𝕘', 'h': '𝕙', 'i': '𝕚', 'j': '𝕛',
-    'k': '𝕜', 'l': '𝕝', 'm': '𝕞', 'n': '𝕟', 'ñ': '𝕟',
-    'o': '𝕠', 'p': '𝕡', 'q': '𝕢', 'r': '𝕣', 's': '𝕤',
-    't': '𝕥', 'u': '𝕦', 'v': '𝕧', 'w': '𝕨', 'x': '𝕩',
-    'y': '𝕪', 'z': '𝕫',
-    
-    # Números
-    '0': '⓪',  '1': '①', '2': '②',
-    '3': '③', '4': '④', '5': '⑤',
-    '6': '⑥', '7': '⑦', '8': '⑧',
-    '9': '⑨',
-
-    # Fuente 2 (Cursiva)
-    # Mayúsculas
-    "A": "𝓐", "B": "𝓑", "C": "𝓒", "D": "𝓓", "E": "𝓔",
-    "F": "𝓕", "G": "𝓖", "H": "𝓗", "I": "𝓘", "J": "𝓙",
-    "K": "𝓚", "L": "𝓛", "M": "𝓜", "N": "𝓝", "Ñ": "𝓝",
-    "O": "𝓞", "P": "𝓟", "Q": "𝓠", "R": "𝓡", "S": "𝓢",
-    "T": "𝓣", "U": "𝓤", "V": "𝓥", "W": "𝓦", "X": "𝓨",
-    "Y": "𝓨", "Z": "𝓩",
-
-    # Minúsculas
-    "a": "𝓪", "b": "𝓫", "c": "𝓬", "d": "𝓭", "e": "𝓮",
-    "f": "𝓯", "g": "𝓰", "h": "𝓱", "i": "𝔦", "j": "𝔧",
-    "k": "𝔨", "l": "𝔩", "m": "𝔪", "n": "𝔫", "ñ": "𝔫",
-    "o": "𝓸", "p": "𝔭", "q": "𝔮", "r": "𝔯", "s": "𝔰",
-    "t": "𝔱", "u": "𝔲", "v": "𝔳", "w": "𝔴", "x": "𝔵",
-    "y": "𝔶", "z": "𝔷",
-
-    # Fuente 3 (Gótica)
-    # Mayúsculas
-    "\u0041": "\u{1D504}", "\u0042": "\u{1D505}", "\u0043": "\u{1D506}",
-    "\u0044": "\u{1D507}", "\u0045": "\u{1D508}", "\u0046": "\u{1D509}",
-    "\u0047": "\u{1D50A}", "\u0048": "\u{1D50B}", "\u0049": "\u{1D50C}",
-    "\u004A": "\u{1D50D}", "\u004B": "\u{1D50E}", "\u004C": "\u{1D50F}",
-    "\u004D": "\u{1D510}", "\u004E": "\u{1D511}", "\u00D1": "\u{1D511}",
-    "\u004F": "\u{1D512}", "\u0050": "\u{1D513}", "\u0051": "\u{1D514}",
-    "\u0052": "\u{1D515}", "\u0053": "\u{1D516}", "\u0054": "\u{1D517}",
-    "\u0055": "\u{1D518}", "\u0056": "\u{1D519}", "\u0057": "\u{1D51A}",
-    "\u0058": "\u{1D51B}", "\u0059": "\u{1D51C}", "\u005A": "\u{1D51D}",
-    
-    # Minúsculas
-    "\u0061":"\u{1D51E}","\u0062":"\u{1D51F}","\u0063":"\u{1D520}",
-    "\u0064":"\u{1D521}","\u0065":"\u{1D522}","\u0066":"\u{1D523}",
-    "\u0067":"\u{1D524}","\u0068":"\u{1D525}","\u0069":"\u{1D526}",
-    "\u006A":"\u{1D527}","\u006B":"\u{1D528}","\u006C":"\u{1D529}",
-    "\u006D":"\u{1D52A}","\u006E":"\u{1D52B}","\u006F":"\u{1D52C}",
-    "\u0070":"\u{1D52D}","\u0071":"\u{1D52E}","\u0072":"\u{1D52F}",
-    "\u0073":"\u{1D530}","\u0074":"\u{1D531}","\u0075":"\u{1D532}",
-    "\u0076":"\u{1D533}","\u0077":"\u{1D534}","\u0078":"\u{1D535}",
-    "\u0079":"\u{1D536}","\u007A":"\u{1D537}"
-}
-
-def convert_text(text):
-    converted_text = ""
-    for char in text:
-        converted_text += font_mapping.get(char, char)  # Reemplaza o deja el carácter original
-    return converted_text
-
-@bot.message_handler(commands=['start'])
-def start(message):
-    bot.send_message(message.chat.id, "Hola, Bienvenido al bot de @YordanDev")
-
-@bot.inline_handler(lambda query: True)
-def query_text(inline_query):
-    if inline_query.query:
-        result_text = convert_text(inline_query.query)
-        bot.answer_inline_query(inline_query.id, [
-            types.InlineQueryResultArticle(
-                id='1',
-                title='Texto Estilizado',
-                input_message_content=types.InputTextMessageContent(
-                    message_text=result_text,
-                    parse_mode='Markdown'
-                )
-            )
-        ])
-
-###### MAIN ######
-def recibir_mensajes():
-    bot.infinity_polling()
-
-if __name__ == '__main__':
-    print("Iniciando el bot......")
-    bot.set_my_commands([
-        telebot.types.BotCommand('/start', "Inicia el bot")
-    ])
-    recibir_mensajes()
+import requests
+from bs4 import BeautifulSoup
+import sys
+import os
+import random
+import time
+import urllib3
+import base64
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+totaldown = 0
+timed = 0
+named = "INDEFINIDO"
+def sizeof_fmt(num, suffix='B'):
+    for unit in ['', 'Ki', 'Mi', 'Gi', 'Ti', 'Pi', 'Ei', 'Zi']:
+        if abs(num) < 1024.0:
+            return "%3.2f%s%s" % (num, unit, suffix)
+        num /= 1024.0
+    return "%.2f%s%s" % (num, 'Yi', suffix)
+def clear_console():
+    os.system("clear")
+def download(url, name, up, total_size):
+    downloaded = 0
+    global totaldown
+    global timed
+    global named
+    try:
+        with up.get(url,headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.72 Safari/537.36"}, stream=True) as r:
+            r.raise_for_status()
+            with open(name, 'wb') as f:
+                for chunk in r.iter_content(chunk_size=8192):
+                    if chunk:
+                        downloaded += 8192
+                        totaldown += 8192
+                        porcentaje = (totaldown/int(total_size))*100
+                        s = round(time.time() - timed)
+                        spaces = 17
+                        rest = 100/spaces
+                        barra = "  \033[32m|\033[0m\033[0m\033[1m\033[30m"+"\033[42m•"*round(porcentaje/rest)+"\033[40m•"*round((100-porcentaje)/rest)+f"\033[0m\033[1m {round(porcentaje,1)}% | {sizeof_fmt(totaldown)}     "
+                        print(barra, end="\r")
+                        f.write(chunk)
+    except:
+        print("\n  \033[31m\033[1m|\033[0m\033[41m\033[30m\033[1m + ERROR - CONEXIÓN PERDIDA + \033[0m")
+        sys.exit()
+directory = "."
+url = input('BitZero URL >> ')
+url = url.replace("bitzero ", "")
+url = url.split(" &&")[0]
+print("  \033[1m\033[33m|\033[30m\033[43m + PREPARANDO + \033[0m")
+named = url.split("/")[-1]
+surl = url.split("/")[-4]
+key = url.split("/")[-2]
+key = key.split("-")
+host = base64.b64decode(key[0].replace("@","==").replace("#","=")).decode("utf-8")
+username = base64.b64decode(key[1].replace("@","==").replace("#","=")).decode("utf-8")
+password = base64.b64decode(key[2].replace("@","==").replace("#","=")).decode("utf-8")
+repo = base64.b64decode(key[3].replace("@","==").replace("#","=")).decode("utf-8")
+bitzero = url.split("/")[-3]
+k = url.split("/")[-5]
+size = k.split("-")[0]
+ide = k.split("-")[1]
+if "-" in surl:
+    urls = surl.split("-")
+else:
+    urls = [surl]
+urla = []
+for url in urls:
+    urla.append(f"{host}/$$$call$$$/api/file/file-api/download-file?submissionFileId={url}&submissionId={repo}&stageId=1")
+urls = urla
+index = 0
+ide = random.randint(1000,9999)
+files = []
+headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.72 Safari/537.36"}
+up = requests.Session()
+getToken = up.get(host+"/login",headers=headers,verify=False)
+token = BeautifulSoup(getToken.text,"html.parser").find('input',{'name':'csrfToken'})
+login_data = {"password": password,"remember": 1,"source": "","username": username,"csrfToken":token}
+login_response = up.post(f"{host}/login/signIn", params=login_data, headers=headers,verify=False)
+timed = time.time()
+clear_console()
+if len(named) > 10:
+    namede = named[:7]+"..."
+else:
+    namede = named
+print("  \033[32m|\033[0m\033[1m\033[42m\033[30m + DESCARGANDO + \033[0m "+namede+" | "+str(sizeof_fmt(int(size))))
+for url in urls:
+    if not url == "":
+        download(url,"index_"+str(ide)+"_"+str(index), up, size)
+        files.append("index_"+str(ide)+"_"+str(index))
+        index += 1
+print("\n")
+with open(directory+"/"+named, "wb") as file:
+    for f in files:
+        if bitzero == '1':
+            file.write(open(f, "rb").read().replace(b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x02\x00\x00\x00\x90wS\xde\x00\x00\x00\x0cIDATx\x9cc```\x00\x00\x00\x04\x00\x01\xf6\x178U\x00\x00\x00\x00IEND\xaeB`\x82",b''))
+        elif bitzero == '2':
+            file.write(base64.b64decode(open(f, "r").read().replace('<!DOCTYPE html>\n<html lang="es">\n<bytes>','').replace('</bytes></html>','')))
+        os.unlink(f)
+clear_console()
+print("\033[32mGUARDADO:\033[0m"+directory+"/"+named)
